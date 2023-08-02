@@ -17,8 +17,7 @@ Before compiling this project, make sure you have two following programs install
 If you use Ubuntu or WSL, the commands for installing are:
 
 ```sh
-sudo apt install ca65
-sudo apt install ld65
+sudo apt install cc65
 ```
 
 ### Building

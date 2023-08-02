@@ -1,0 +1,3 @@
+.SEGMENT "CHARS"
+
+.RES 8192

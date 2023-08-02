@@ -14,11 +14,10 @@ Before compiling this project, make sure you have two following programs install
 *   `ca65` - 6502 assembler program
 *   `ld65` - 6502 linker program
 
-If you use Ubuntu or WSL, the commands for installing are:
+If you use Ubuntu or WSL, the command for installing is:
 
 ```sh
-sudo apt install ca65
-sudo apt install ld65
+sudo apt install cc65
 ```
 
 ### Building

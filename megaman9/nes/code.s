@@ -13,10 +13,10 @@ nes_reset:
     STX NES_REG_APU_DMC_FLAGS                   ; disable DMC IRQs
     ; ------------------------------------------- (mapper setup goes here)
     BIT NES_REG_PPU_STAT                        ; clear possibly undefined vblank flag
-:       BIT NES_REG_PPU_STAT                    ;
+    :   BIT NES_REG_PPU_STAT                    ;
         BPL :-                                  ; wait until vblank occurs
     ; ------------------------------------------- (memory setup goes here)
-:       BIT NES_REG_PPU_STAT                    ;
+    :   BIT NES_REG_PPU_STAT                    ;
         BPL :-                                  ; wait until second vblank occurs
     LDA #$3F                                    ; high byte of pallete table address
     STA NES_REG_PPU_ADDR                        ;
@@ -26,7 +26,7 @@ nes_reset:
     STA NES_REG_PPU_DATA                        ; use the color by the pallete
     LDA #%00011110                              ;
     STA NES_REG_PPU_MASK                        ; enable sprites and tiles, including leftmost 8 pixels
-:       JMP :-                                  ; stall forever
+    :   JMP :-                                  ; stall forever
 
 
 nes_nmi:

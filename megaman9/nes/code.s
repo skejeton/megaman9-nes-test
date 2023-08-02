@@ -24,7 +24,8 @@ nes_reset:
     STA NES_REG_PPU_ADDR                        ; finish loading pallete table address into the address register
     LDA #$31                                    ; load color (light blue)
     STA NES_REG_PPU_DATA                        ; use the color by the pallete
-    LDA #%00011110                              ; enable sprites and tiles, including leftmost 8 pixels
+    LDA #%00011110                              ;
+    STA NES_REG_PPU_MASK                        ; enable sprites and tiles, including leftmost 8 pixels
 :       JMP :-                                  ; stall forever
 
 

@@ -80,12 +80,13 @@ nes_reset:
     STA NES_REG_PPU_DATA                        ; use the color by the pallete
     LDA #%00011110                              ;
     STA NES_REG_PPU_MASK                        ; enable sprites and tiles, including leftmost 8 pixels
-    CLI                                         ; enable IRQs
     LDA #$80                                    ;
     STA NES_REG_PPU_CTRL                        ; enable NMI
+    CLI                                         ; enable IRQs
     :   BPL :-                                  ; do nothing forever until next frame
                                                 ;
 nes_nmi:                                        ;
+    BIT NES_REG_PPU_STAT                        ; clear vblank
     PHA                                         ;
     JSR render_things                           ; render things
     LDA #$00                                    ;

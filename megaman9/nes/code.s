@@ -1,5 +1,9 @@
 .SEGMENT "CODE"
 
+; Some notes:
+;   - We need a variable to detect if VRAM update is ready to avoid halfway/broken rendering
+;     during NMI, and outright crashes/undefined behaviour: incorrect encoding.
+
 render_things:
     LDA #$20                                    ; high byte of first tile address
     STA NES_REG_PPU_ADDR                        ;
@@ -83,7 +87,7 @@ nes_reset:
     LDA #$80                                    ;
     STA NES_REG_PPU_CTRL                        ; enable NMI
     CLI                                         ; enable IRQs
-    :   BPL :-                                  ; do nothing forever until next frame
+    :   JMP :-                                  ; do nothing forever until next frame
                                                 ;
 nes_nmi:                                        ;
     BIT NES_REG_PPU_STAT                        ; clear vblank

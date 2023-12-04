@@ -11,44 +11,6 @@ render_things:
     STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
     LDA #$01                                    ; load tile (smiley)
     STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$21                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$CE                                    ; low byte of first tile address
-    STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$02                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$03                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$04                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$05                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$06                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$21                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$C8                                    ; low byte of first tile address
-    STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$07                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$21                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$E9                                    ; low byte of first tile address
-    STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$07                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$21                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$B7                                    ; low byte of first tile address
-    STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$07                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
-    LDA #$21                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$D8                                    ; low byte of first tile address
-    STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$07                                    ; load tile
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
     RTS
 
 

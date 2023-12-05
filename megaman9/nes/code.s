@@ -4,15 +4,116 @@
 ;   - We need a variable to detect if VRAM update is ready to avoid halfway/broken rendering
 ;     during NMI, and outright crashes/undefined behaviour: incorrect encoding.
 
-render_things:
-    LDA #$20                                    ; high byte of first tile address
-    STA NES_REG_PPU_ADDR                        ;
-    LDA #$30                                    ; low byte of first tile address
+; Tile table memory address: $2000-$23FF
+
+TEMP_BYTE = $1
+
+; A = stripe data
+; X = stripe X
+; Y = stripe Y
+render_bit_stripe:
+    PHA
+    TYA                                         ; move Y to A
+    LSR                                         ;
+    LSR                                         ;
+    LSR                                         ; shift Y to the right by 3
+    STA TEMP_BYTE                               ; store the upper 3 bits of Y
+    LDA #$20                                    ; add name table address
+    CLC                                         ; clear carry
+    ADC TEMP_BYTE                               ; add A to high Y
+    STA NES_REG_PPU_ADDR                        ; finish loading tile address into the address register
+
+    TYA                                         ; move Y to A
+    ASL                                         ;
+    ASL                                         ;
+    ASL                                         ;
+    ASL                                         ;
+    ASL                                         ; shift tile Y to the left by 5
+    STA TEMP_BYTE                               ; push lower tile Y into the stack
+    TXA                                         ; move X to A
+    CLC                                         ; clear carry
+    ADC TEMP_BYTE                               ; add A to lower tile Y
     STA NES_REG_PPU_ADDR                        ; finish loading first tile address into the address register
-    LDA #$01                                    ; load tile (smiley)
-    STA NES_REG_PPU_DATA                        ; store the tile in the nametable
+    PLA
+
+    LSR
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   LSR
+    STX NES_REG_PPU_DATA                        ; store the tile in the nametable
+    LDX #$00
+    BCC :+
+    LDX #$02
+:   STX NES_REG_PPU_DATA                        ; store the tile in the nametable
     RTS
 
+
+
+render_things:
+    LDA map_data+0
+    LDX #$0
+    LDY #$1
+    JSR render_bit_stripe                             ; render bit stripe
+    LDA map_data+1
+    LDX #$0
+    LDY #$2
+    JSR render_bit_stripe                             ; render bit stripe
+    LDA map_data+2
+    LDX #$0
+    LDY #$3
+    JSR render_bit_stripe
+    LDA map_data+3
+    LDX #$0
+    LDY #$4
+    JSR render_bit_stripe
+    LDA map_data+4
+    LDX #$0
+    LDY #$5
+    JSR render_bit_stripe
+    LDA map_data+5
+    LDX #$0
+    LDY #$6
+    JSR render_bit_stripe
+    LDA map_data+6
+    LDX #$0
+    LDY #$7
+    JSR render_bit_stripe
+    LDA map_data+7
+    LDX #$0
+    LDY #$8
+    JSR render_bit_stripe
+    RTS
 
 nes_reset:
     SEI                                         ; disable IRQs

@@ -4,3 +4,4 @@
 .INCLUDE "nes/vectors.s"
 .INCLUDE "nes/chars.s"
 .INCLUDE "nes/startup.s"
+.INCLUDE "nes/map.s"
